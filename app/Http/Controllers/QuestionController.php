@@ -26,11 +26,12 @@ class QuestionController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param Request $request
      * @return Response
      */
     public function store(Request $request)
     {
+
         // auth()->user()->question()->create($request->all());
         Question::create($request->all());
         return response('Created', \Symfony\Component\HttpFoundation\Response::HTTP_CREATED);
@@ -51,13 +52,14 @@ class QuestionController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param Request $request
      * @param Question $question
      * @return Response
      */
     public function update(Request $request, Question $question)
     {
-        //
+        $question->update($request->all());
+        return response('Updated', \Symfony\Component\HttpFoundation\Response::HTTP_ACCEPTED);
     }
 
     /**

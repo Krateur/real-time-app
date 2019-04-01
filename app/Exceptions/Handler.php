@@ -56,15 +56,19 @@ class Handler extends ExceptionHandler
         if ($exception instanceof  TokenBlacklistedException) {
             return response(['error' => 'Token can not be used, get new one'], \Symfony\Component\HttpFoundation\Response::HTTP_BAD_REQUEST);
         }
+
         elseif ($exception instanceof TokenInvalidException) {
             return response(['error' => 'Token is invalid'], \Symfony\Component\HttpFoundation\Response::HTTP_BAD_REQUEST);
         }
+
         elseif ($exception instanceof TokenExpiredException) {
             return response(['error' => 'Token is expired'], \Symfony\Component\HttpFoundation\Response::HTTP_BAD_REQUEST);
         }
+
         elseif ($exception instanceof JWTException) {
             return response(['error' => 'Token is not provided'], \Symfony\Component\HttpFoundation\Response::HTTP_BAD_REQUEST);
         }
+
         return parent::render($request, $exception);
     }
 }

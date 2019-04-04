@@ -19,6 +19,9 @@
                 type="submit"
                 color="green"
             >submit</v-btn>
+            <router-link to="/register">
+                <v-btn  color="blue">Register</v-btn>
+            </router-link>
         </form>
     </v-container>
 </template>
@@ -35,9 +38,15 @@
                 }
             }
         },
+        created() {
+            if ( User.loggedIn() ) {
+                this.$router.push({name: 'forum'})
+            }
+        },
         methods: {
             login () {
                 User.login(this.form)
+                this.$router.push({name: 'forum'})
             }
         }
     }

@@ -6,11 +6,8 @@
 
 
         <div class="hidden-sm-and-down">
-            <v-btn flat>Forum</v-btn>
-            <v-btn flat>Ask question</v-btn>
-            <v-btn flat>Catégory</v-btn>
-            <router-link to="/login">
-                <v-btn flat>Login</v-btn>
+            <router-link :to="item.to" v-for="item in items" :key="item.title" v-if="item.show">
+                <v-btn flat>{{ item.title }}</v-btn>
             </router-link>
         </div>
 
@@ -18,7 +15,25 @@
 </template>
 
 <script>
-    export default {
+    import User from "../Helpers/User";
 
+    export default {
+        data() {
+            return {
+                items: [
+                    {title: 'Forum', to: '/forum', show: true},
+                    {title: 'Login', to: '/login', show: !User.loggedIn()},
+                    {title: 'Ask Question', to: '/ask', show: User.loggedIn()},
+                    {title: 'Category', to: '/category', show: User.loggedIn()},
+                    {title: 'Logout', to: '/logout', show: User.loggedIn()},
+
+                ]
+            }
+        },
+        created() {
+            EventBus.$on('logout', () => {
+                User.logout()
+            })
+        }
     }
 </script>

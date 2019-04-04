@@ -8,6 +8,7 @@ Vue.use(Vuetify);
 import  User from './Helpers/User'
 Window.User = User;
 
+window.EventBus = new Vue();
 
 Vue.component('AppHome', require('./components/AppHome').default);
 import router from './Router/router'
